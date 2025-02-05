@@ -9,39 +9,48 @@ public class CreateAccountTest extends TestBase {
 
     @Test
     public void newUserRegistrationPositiveTest() {
+
+        int i = (int)((System.currentTimeMillis()/1000%3600));
+
         // click on Login link
-        click(By.cssSelector("LINKONREGISTRATIONBUTTON"));
+        clickOnLoginLink();
 
-        //enter email
-        type(By.name("email"), "bibaboba@gmail.com");
+        //click on Registration button
+        clickOnRegistrationButton();
 
-        //enter password
-        type(By.name("password"), "bibaboba12345678!");
+        //enter firstName
+        fillRegisterForm("tyson" + i + "@gmail.com", "Qwerty123!");
 
         //click on registration button
-        click(By.name("registration"));
+        clickOnRegistrationButton();
 
-        //verify SignOut Button is displayed
-        Assert.assertTrue(isElementPresent(By.xpath("LinkOnSignOutButton")));
+        //  verify that we are sign up
+        Assert.assertTrue(driver.findElement(By.xpath("//h2[text()='Login']")).isDisplayed(), "No such element has been found");
+    }
+
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
     }
 
 
     @Test
-    public void existedUserRegistrationNegativeTest() {
+    public void alreadyExistedUserNegativeTest() {
         // click on Login link
-        click(By.cssSelector("LINKONREGISTRATIONBUTTON"));
+        clickOnLoginLink();
 
-        //enter email
-        type(By.name("email"), "bibaboba@gmail.com");
+        //click on Registration button
+        clickOnRegistrationButton();
 
-        //enter password
-        type(By.name("password"), "bibaboba12345678!");
+        //fill important info
+        fillRegisterForm("tyson777777@gmail.com", "Qwerty123!");
 
         //click on registration button
-        click(By.name("registration"));
+        clickOnRegistrationButton();
 
-        //verify Alert is displayed
-        Assert.assertTrue(isAlertDisplayed()); //в случае если у нас будет окно придупреждения
+        //  verify that user already exist
+        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'User with email')]")).isDisplayed(),
+                "No message");
     }
 
 
