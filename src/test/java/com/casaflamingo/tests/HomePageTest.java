@@ -14,12 +14,12 @@ public class HomePageTest extends TestBase {
     }
 
     public boolean isHomeComponentPresent() {
-        return driver.findElements(By.cssSelector("h2")).size() > 0;
+        return app.getHome().isHomeComponentPresent();
     }
 
     public boolean isElementPresent(By locator) {
 
-        return driver.findElements(locator).size() > 0;
+        return app.getHome().isElementPresent(locator);
     }
 
 

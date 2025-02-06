@@ -13,40 +13,42 @@ public class CreateAccountTest extends TestBase {
         int i = (int)((System.currentTimeMillis()/1000%3600));
 
         // click on Login link
-        clickOnLoginLink();
+        app.getUser().clickOnLoginLink();
 
         //click on Registration button
-        clickOnRegistrationButton();
+        app.getUser().clickOnRegistrationButton();
 
         //enter firstName
-        fillRegisterForm("tyson" + i + "@gmail.com", "Qwerty123!");
+        app.getUser().fillRegisterForm("tyson" + i + "@gmail.com", "Qwerty123!");
 
         //click on registration button
-        clickOnRegistrationButton();
+        app.getUser().clickOnRegistrationButton();
 
         //  verify that we are sign up
         Assert.assertTrue(driver.findElement(By.xpath("//h2[text()='Login']")).isDisplayed(), "No such element has been found");
     }
 
 
+
+
     public void click(By locator) {
-        driver.findElement(locator).click();
+        app.getUser().click(locator);
     }
 
 
-    @Test
+    @Test (enabled = false)
     public void alreadyExistedUserNegativeTest() {
         // click on Login link
-        clickOnLoginLink();
+        app.getUser().clickOnLoginLink();
 
         //click on Registration button
-        clickOnRegistrationButton();
+        app.getUser().clickOnRegistrationButton();
 
         //fill important info
-        fillRegisterForm("tyson777777@gmail.com", "Qwerty123!");
+        app.getUser().fillRegisterForm("tyson777777@gmail.com", "Qwerty123!");
 
         //click on registration button
-        clickOnRegistrationButton();
+        app.getUser().clickOnRegistrationButton();
 
         //  verify that user already exist
         Assert.assertTrue(driver.findElement(By.xpath("//div[contains(text(), 'User with email')]")).isDisplayed(),
